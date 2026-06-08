@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>وصفات الكيتو — دليل الوجبات المنزلية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#4E6B3D;
+    --green-dark:#3a5230;
+    --cream:#FBF8F1;
+    --card:#ffffff;
+    --soft:#EAF1E2;
+    --line:#dfd8c8;
+    --text:#2a2a26;
+    --muted:#6a6a60;
+    --red:#b23a3a;
+    --shadow:0 4px 18px rgba(60,70,40,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Tajawal',system-ui,'Segoe UI',Tahoma,sans-serif;
+    background:var(--cream);
+    color:var(--text);
+    font-size:20px;
+    line-height:1.9;
+    -webkit-text-size-adjust:100%;
+  }
+  /* ===== الهيدر ===== */
+  header{
+    background:linear-gradient(135deg,var(--green),var(--green-dark));
+    color:#fff;
+    padding:34px 20px 28px;
+    text-align:center;
+  }
+  header .eyebrow{font-size:18px;opacity:.92;font-weight:500;letter-spacing:1px}
+  header h1{font-size:46px;font-weight:800;margin:6px 0 8px}
+  header p.sub{font-size:20px;opacity:.95;font-weight:400;max-width:760px;margin:0 auto}
+
+  .wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+  /* ===== شريط البحث ===== */
+  .searchbar{
+    position:sticky;top:0;z-index:50;
+    background:var(--cream);
+    padding:16px 0 10px;
+    border-bottom:1px solid var(--line);
+  }
+  .searchbar .inner{max-width:900px;margin:0 auto;padding:0 16px}
+  #search{
+    width:100%;
+    font-family:inherit;
+    font-size:24px;
+    padding:18px 56px 18px 20px;
+    border:3px solid var(--green);
+    border-radius:16px;
+    background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" stroke="%234E6B3D" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>') no-repeat right 18px center;
+    color:var(--text);
+    outline:none;
+    box-shadow:var(--shadow);
+  }
+  #search:focus{border-color:var(--green-dark)}
+  #search::placeholder{color:#9a9a8e}
+  .hint{font-size:16px;color:var(--muted);margin-top:8px;text-align:center}
+
+  /* ===== أزرار الفئات ===== */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:16px 16px 4px;max-width:900px;margin:0 auto}
+  .chip{
+    font-family:inherit;font-size:19px;font-weight:700;
+    padding:11px 18px;border-radius:999px;
+    border:2px solid var(--green);background:#fff;color:var(--green-dark);
+    cursor:pointer;transition:.15s;
+  }
+  .chip:hover{background:var(--soft)}
+  .chip.active{background:var(--green);color:#fff}
+
+  /* ===== الأقسام التعريفية ===== */
+  section.intro{margin:22px 0}
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px;
+  }
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .col h3{font-size:24px;margin-bottom:10px}
+  .col.ok h3{color:var(--green-dark)}
+  .col.no h3{color:var(--red)}
+  .col ul{list-style:none}
+  .col li{padding:7px 0;font-size:19px;border-bottom:1px dashed #eee}
+  .col li:last-child{border:none}
+  .col.ok li::before{content:"✓ ";color:var(--green);font-weight:800}
+  .col.no li::before{content:"✕ ";color:var(--red);font-weight:800}
+
+  .measures{font-size:18px;background:var(--soft);border-radius:14px;padding:16px 20px;color:var(--green-dark);text-align:center;font-weight:500}
+
+  .tips h2{font-size:26px;color:var(--green-dark);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .tip{margin-bottom:14px;padding-right:14px;border-right:4px solid var(--green);}
+  .tip strong{font-size:21px;color:var(--green-dark);display:block;margin-bottom:2px}
+  .tip span{font-size:18px;color:#444}
+
+  /* ===== عناوين الفئات ===== */
+  .cat-head{
+    font-size:32px;font-weight:800;color:#fff;
+    background:var(--green);border-radius:14px;
+    padding:14px 22px;margin:30px 0 18px;
+    display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);
+  }
+  .cat-head .ic{font-size:36px}
+  .cat-head .count{margin-right:auto;font-size:18px;font-weight:500;background:rgba(255,255,255,.2);padding:4px 14px;border-radius:999px}
+
+  /* ===== بطاقة الوصفة ===== */
+  .recipe{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:24px 26px;margin-bottom:20px;box-shadow:var(--shadow);
+  }
+  .recipe h3{font-size:27px;color:var(--green-dark);margin-bottom:6px}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+  .badge{font-size:17px;font-weight:700;background:var(--soft);color:var(--green-dark);padding:6px 14px;border-radius:999px}
+  .rgrid{display:grid;grid-template-columns:1fr 1.3fr;gap:24px}
+  .block h4{font-size:21px;color:var(--green-dark);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--soft)}
+  .ing{list-style:none}
+  .ing li{padding:6px 0;font-size:19px;display:flex;gap:8px}
+  .ing li::before{content:"●";color:var(--green);font-size:13px;margin-top:9px}
+  .steps{list-style:none;counter-reset:s}
+  .steps li{counter-increment:s;padding:8px 0 8px 0;font-size:19px;display:flex;gap:12px;align-items:flex-start}
+  .steps li::before{
+    content:counter(s);
+    flex:0 0 auto;width:32px;height:32px;border-radius:50%;
+    background:var(--green);color:#fff;font-weight:800;font-size:18px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .note{
+    margin-top:18px;background:#FFF8E6;border:1px solid #F0E2B8;border-radius:12px;
+    padding:12px 16px;font-size:18px;color:#7a5e1a;
+  }
+  .note::before{content:"💡 ";}
+
+  .noresult{text-align:center;padding:60px 20px;font-size:24px;color:var(--muted)}
+
+  footer{text-align:center;padding:34px 16px;color:var(--muted);font-size:17px}
+
+  .topbtn{
+    position:fixed;bottom:24px;left:24px;z-index:60;
+    width:58px;height:58px;border-radius:50%;border:none;
+    background:var(--green);color:#fff;font-size:26px;cursor:pointer;
+    box-shadow:0 6px 16px rgba(0,0,0,.22);display:none;
+  }
+
+  @media (max-width:680px){
+    body{font-size:19px}
+    header h1{font-size:36px}
+    .two-col,.rgrid{grid-template-columns:1fr}
+    .recipe{padding:20px 18px}
+    #search{font-size:21px}
+  }
+
+  /* ===== الطباعة / PDF ===== */
+  @media print{
+    .searchbar,.chips,.topbtn{display:none!important}
+    body{background:#fff;font-size:13pt}
+    .recipe,.panel{box-shadow:none;page-break-inside:avoid;border-color:#ccc}
+    .cat-head{page-break-after:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    header,.cat-head,.badge,.steps li::before,.col li::before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">نظام غذائي منخفض الكربوهيدرات</div>
+  <h1>وصفات الكيتو 🍳</h1>
+  <p class="sub">دليل وجبات منزلية — ٣٠ وصفة وقائمة سلطات. مكوّنات بسيطة ومتوفرة، وخطوات سهلة، تكفي كل وصفة شخصين تقريبًا.</p>
+</header>
+
+<div class="searchbar">
+  <div class="inner">
+    <input id="search" type="search" inputmode="search" placeholder="اكتبي اسم الوجبة… مثل: دجاج، سمك، عجة">
+    <div class="hint">اكتبي اسم أي مكوّن أو وجبة وستظهر لكِ الوصفات المناسبة فورًا</div>
+  </div>
+</div>
+
+<div class="chips" id="chips">
+  <button class="chip active" data-cat="all">الكل</button>
+</div>
+
+<div class="wrap">
+
+  <section class="intro" id="intro">
+    <div class="panel">
+      <div class="two-col">
+        <div class="col ok"><h3>✅ مكوّنات مسموحة</h3><ul id="allowed"></ul></div>
+        <div class="col no"><h3>⛔ مكوّنات ممنوعة</h3><ul id="forbidden"></ul></div>
+      </div>
+    </div>
+    <div class="measures">
+      📏 <strong>المقاييس:</strong> «م.ك» = ملعقة كبيرة · «م.ص» = ملعقة صغيرة · «كوب» = ٢٤٠ مل · «فص» = فص ثوم
+    </div>
+    <div class="panel tips" style="margin-top:18px">
+      <h2>⚠️ تنبيهات مهمة عند الشراء</h2>
+      <div id="tips"></div>
+    </div>
+  </section>
+
+  <main id="content"></main>
+
+  <div class="noresult" id="noresult" style="display:none">لا توجد وصفة بهذا الاسم 🤔<br>جرّبي كلمة أخرى مثل «بيض» أو «لحم»</div>
+
+</div>
+
+<footer>دليل وصفات الكيتو — جميع الوصفات منخفضة الكربوهيدرات ♥</footer>
+<button class="topbtn" id="topbtn" title="للأعلى">▲</button>
+
+<script>
+// بيانات وصفات الكيتو — كل وصفة كائن مستقل لتسهيل البحث والعرض
+const CATEGORIES = [
+  {
+    id: "egg",
+    icon: "🥚",
+    name: "البيض",
+    recipes: [
+      {
+        title: "عجة الجبن",
+        time: "١٠ دقائق",
+        method: "مقلاة",
+        ingredients: ["٣ بيضات", "حفنة جبن شيدر أو موزاريلا مبشور", "م.ك زبدة", "ملح وفلفل أسود"],
+        steps: ["اخفقي البيض مع الملح والفلفل.", "ذوّبي الزبدة في مقلاة على نار هادئة.", "اسكبي البيض، وعند بداية تماسكه ضعي الجبن في المنتصف.", "اطوي العجة نصفين وقدّميها."],
+        note: "يمكن إضافة بقدونس مفروم أو فطر مقلي."
+      },
+      {
+        title: "بيض مخفوق بالقشطة",
+        time: "٨ دقائق",
+        method: "مقلاة",
+        ingredients: ["٣ بيضات", "٢ م.ك كريمة طبخ (دايري)", "م.ك زبدة", "ملح وفلفل"],
+        steps: ["اخفقي البيض مع القشطة والملح.", "ذوّبي الزبدة على نار هادئة جدًّا.", "اسكبي البيض وحرّكيه ببطء حتى يتكتّل بقوام كريمي.", "ارفعيه وهو طريّ دون تجفيفه."],
+        note: "النار الهادئة سرّ القوام الكريمي."
+      },
+      {
+        title: "بيض مقلي بالسبانخ",
+        time: "١٠ دقائق",
+        method: "مقلاة",
+        ingredients: ["٢ بيضة", "حفنة سبانخ طازجة", "م.ك زبدة", "فص ثوم مفروم", "ملح وفلفل"],
+        steps: ["قلّبي الثوم والسبانخ بالزبدة دقيقتين حتى تذبل.", "اكسري البيض فوقها مباشرة.", "غطّي المقلاة دقيقتين حتى ينضج البياض.", "رشّي الملح والفلفل وقدّمي."],
+        note: "تُقدّم مع قطع جبن فوقها."
+      },
+      {
+        title: "فريتاتا الكوسا والجبن (بالفرن)",
+        time: "٢٥ دقيقة",
+        method: "فرن",
+        ingredients: ["٥ بيضات", "١ كوسا مبشورة", "½ كوب جبن مبشور", "٣ م.ك كريمة (دايري)", "م.ك زيت زيتون", "ملح وبهارات"],
+        steps: ["سخّني الفرن على ١٨٠ درجة.", "اعصري ماء الكوسا، ثم اخلطيها مع البيض والقشطة والجبن والبهارات.", "ادهني قالبًا بالزيت واسكبي الخليط.", "اخبزيها ٢٠–٢٥ دقيقة حتى تتماسك وتتحمّر."],
+        note: "تصلح باردة لليوم التالي."
+      },
+      {
+        title: "سلطة البيض بالمايونيز",
+        time: "١٥ دقيقة",
+        method: "سلق",
+        ingredients: ["٤ بيضات مسلوقة", "٢ م.ك مايونيز", "م.ص خردل (اختياري)", "بصل أخضر مفروم", "ملح وفلفل"],
+        steps: ["اسلقي البيض ١٠ دقائق ثم قشّريه واهرسيه.", "أضيفي المايونيز والخردل والبصل الأخضر.", "اخلطي وتبّلي بالملح والفلفل.", "تُقدّم على ورق الخس."],
+        note: "وجبة باردة سريعة التحضير."
+      }
+    ]
+  },
+  {
+    id: "chicken",
+    icon: "🍗",
+    name: "الدجاج",
+    recipes: [
+      {
+        title: "صدور دجاج بالزبدة والثوم",
+        time: "٢٠ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٢ صدر دجاج", "٢ م.ك زبدة", "٣ فصوص ثوم مفروم", "ملح، فلفل، بابريكا", "عصير ليمونة"],
+        steps: ["تبّلي الدجاج بالملح والفلفل والبابريكا.", "حمّريه بالزبدة على نار متوسطة حتى يحمرّ الوجهان.", "أضيفي الثوم في آخر دقيقتين.", "اسكبي عصير الليمون وقدّمي مع المرق."],
+        note: "يُترك دون تحريك حتى يتحمّر جيدًا."
+      },
+      {
+        title: "دجاج بالكريمة والفطر",
+        time: "٢٥ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٢ صدر دجاج مقطّع", "١ علبة فطر شرائح", "١ كوب كريمة طبخ (دايري)", "٢ فص ثوم", "م.ك زبدة", "ملح وفلفل"],
+        steps: ["حمّري الدجاج بالزبدة حتى ينضج ثم ارفعيه.", "قلّبي الفطر والثوم في المقلاة نفسها.", "أضيفي القشطة واتركيها تغلي قليلًا.", "أعيدي الدجاج وقلّبي دقيقتين حتى تتماسك الصلصة."],
+        note: "صلصة غنية تُغني عن النشويات."
+      },
+      {
+        title: "دجاج بالفرن بالبهارات",
+        time: "٤٠ دقيقة",
+        method: "فرن",
+        ingredients: ["٤ قطع دجاج (أوراك أو صدر)", "٣ م.ك زيت زيتون", "ثوم مهروس", "بابريكا، كركم، ملح، فلفل", "عصير ليمون"],
+        steps: ["سخّني الفرن على ٢٠٠ درجة.", "اخلطي الزيت والثوم والبهارات والليمون ودلّكي بها الدجاج.", "رتّبيه في صينية.", "اخبزيه ٣٥–٤٠ دقيقة حتى يحمرّ."],
+        note: "وجبة كاملة مع سلطة خضراء."
+      },
+      {
+        title: "دجاج مقرمش بدقيق اللوز",
+        time: "٢٠ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٢ صدر دجاج (شرائح)", "٤ م.ك دقيق لوز", "٣ م.ك جبن بارميزان مبشور", "١ بيضة", "ملح وبهارات", "زيت للقلي"],
+        steps: ["اخلطي دقيق اللوز مع البارميزان والبهارات.", "اغمسي الدجاج بالبيض ثم بخليط الدقيق.", "اقليه بزيت متوسط الحرارة حتى يذهّب الوجهان.", "ضعيه على ورق ماصّ ليتصفّى."],
+        note: "بديل صحي للدجاج المقلي بالبقسماط."
+      },
+      {
+        title: "دجاج بالليمون والأعشاب",
+        time: "٢٥ دقيقة",
+        method: "مقلاة / فرن",
+        ingredients: ["٢ صدر دجاج", "عصير ليمونتين", "٣ م.ك زيت زيتون", "بقدونس وزعتر", "ثوم", "ملح وفلفل"],
+        steps: ["اخلطي الليمون والزيت والثوم والأعشاب.", "تبّلي الدجاج واتركيه ١٥ دقيقة.", "حمّريه في المقلاة أو الفرن حتى ينضج.", "اسكبي باقي الصلصة فوقه."],
+        note: "طبق منعش خفيف الرائحة."
+      }
+    ]
+  },
+  {
+    id: "meat",
+    icon: "🥩",
+    name: "اللحم",
+    recipes: [
+      {
+        title: "ستيك اللحم بالزبدة",
+        time: "١٥ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٢ شريحة لحم (ستيك)", "٢ م.ك زبدة", "ثوم", "إكليل الجبل (اختياري)", "ملح وفلفل خشن"],
+        steps: ["جفّفي اللحم وتبّليه بالملح والفلفل.", "سخّني المقلاة جيدًا ثم ضعي اللحم.", "اتركيه ٣–٤ دقائق لكل وجه حسب درجة النضج.", "أضيفي الزبدة والثوم في النهاية واسكبيها فوقه."],
+        note: "يُترك ٥ دقائق ليرتاح قبل التقطيع."
+      },
+      {
+        title: "لحم مكعّبات بالبهارات",
+        time: "٢٠ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٤٠٠جم لحم مكعّبات", "٢ م.ك زيت", "بصلة صغيرة (اختياري)", "كمون، فلفل أسود، ملح", "ثوم"],
+        steps: ["حمّري اللحم بالزيت على نار عالية حتى يحمرّ.", "أضيفي الثوم والبصل والبهارات.", "اخفضي النار وغطّيه حتى يستوي اللحم ويطرى.", "يُقدّم مع سلطة أو خضار سوتيه."],
+        note: "إن كان اللحم قاسيًا يُضاف قليل ماء ويُغطّى مدة أطول."
+      },
+      {
+        title: "لحم بالكريمة والفلفل (ستروجانوف كيتو)",
+        time: "٣٠ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٤٠٠جم لحم شرائح رفيعة", "١ كوب كريمة طبخ (دايري)", "فطر شرائح", "بصل قليل", "م.ك زبدة", "ملح وفلفل"],
+        steps: ["حمّري اللحم بالزبدة سريعًا ثم ارفعيه.", "قلّبي الفطر والبصل.", "أضيفي القشطة واتركيها تغلي خفيفًا.", "أعيدي اللحم وقلّبي حتى تتماسك الصلصة."],
+        note: "يُقدّم فوق القرنبيط المبشور بدل الأرز."
+      },
+      {
+        title: "لحم سوتيه بالخضار",
+        time: "٢٠ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٤٠٠جم لحم شرائح", "١ فلفل رومي", "١ كوسا", "ثوم", "٢ م.ك زيت زيتون", "صويا صوص قليل، ملح وفلفل"],
+        steps: ["حمّري اللحم بالزيت على نار عالية.", "أضيفي الخضار المقطّعة والثوم.", "قلّبي ٤–٥ دقائق حتى تطرى الخضار مع بقاء قرمشتها.", "تبّلي بالصويا والفلفل."],
+        note: "سريع التحضير ومتنوّع."
+      },
+      {
+        title: "لحم بالفرن (روست)",
+        time: "ساعتان",
+        method: "فرن",
+        ingredients: ["قطعة لحم ٧٠٠جم", "٣ م.ك زيت زيتون", "ثوم", "إكليل جبل", "ملح وفلفل خشن"],
+        steps: ["سخّني الفرن على ١٦٠ درجة.", "دلّكي اللحم بالزيت والثوم والبهارات.", "ضعيه في صينية مغطّاة بورق قصدير.", "اخبزيه ساعة ونصف إلى ساعتين حتى يطرى."],
+        note: "يكفي لأكثر من وجبة ويُعاد تسخينه بسهولة."
+      }
+    ]
+  },
+  {
+    id: "ground-chicken",
+    icon: "🍖",
+    name: "الدجاج المفروم",
+    recipes: [
+      {
+        title: "كرات الدجاج بالجبن (بالفرن)",
+        time: "٣٠ دقيقة",
+        method: "فرن",
+        ingredients: ["٤٠٠جم دجاج مفروم", "½ كوب جبن موزاريلا مبشور", "١ بيضة", "ثوم وبقدونس", "ملح وبهارات"],
+        steps: ["سخّني الفرن على ١٩٠ درجة.", "اخلطي جميع المكوّنات جيدًا.", "كوّري كرات متوسطة ورتّبيها في صينية.", "اخبزيها ٢٠–٢٥ دقيقة حتى تحمرّ."],
+        note: "تصلح باردة كوجبة خفيفة."
+      },
+      {
+        title: "برجر الدجاج",
+        time: "٢٠ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٤٠٠جم دجاج مفروم", "١ بيضة", "٢ م.ك دقيق لوز", "بصل وثوم مبشور", "ملح وبهارات"],
+        steps: ["اخلطي المكوّنات واعجنيها قليلًا.", "شكّلي أقراصًا متوسطة السماكة.", "حمّريها بالزيت ٤ دقائق لكل وجه.", "تُقدّم مع شريحة جبن وخس."],
+        note: "تُقدّم بدون خبز مع الخضار."
+      },
+      {
+        title: "كفتة الدجاج المشوية",
+        time: "٢٥ دقيقة",
+        method: "فرن / شواية",
+        ingredients: ["٤٠٠جم دجاج مفروم", "بصل وبقدونس مفروم ناعم", "ثوم", "كمون وملح وفلفل", "م.ك زيت"],
+        steps: ["اخلطي الكل حتى يتماسك.", "شكّليه أصابع حول أسياخ أو على صينية.", "اشويه في الفرن على ٢٠٠ درجة ١٥–٢٠ دقيقة.", "قلّبيه حتى يذهّب من الجهتين."],
+        note: "يُقدّم مع سلطة الخيار بالزبادي."
+      },
+      {
+        title: "دجاج مفروم سوتيه بالخضار",
+        time: "٢٠ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٤٠٠جم دجاج مفروم", "١ كوسا مكعّبات", "فلفل رومي", "ثوم", "٢ م.ك زيت زيتون", "بهارات"],
+        steps: ["حمّري الدجاج المفروم بالزيت حتى يتفتّت وينضج.", "أضيفي الثوم والخضار المقطّعة.", "قلّبي حتى تطرى الخضار.", "تبّلي بالملح والبهارات."],
+        note: "وجبة كاملة في طبق واحد."
+      },
+      {
+        title: "عجة الدجاج المفروم (فطائر البيض)",
+        time: "٣٠ دقيقة",
+        method: "فرن",
+        ingredients: ["٢٥٠جم دجاج مفروم مطبوخ", "٦ بيضات", "½ كوب جبن مبشور", "بقدونس", "ملح وفلفل"],
+        steps: ["سخّني الفرن على ١٨٠ درجة.", "اخلطي البيض مع الجبن والبهارات.", "وزّعي الدجاج المطبوخ في قوالب كب كيك ثم اسكبي البيض.", "اخبزيها ١٨–٢٠ دقيقة حتى تنتفخ وتتماسك."],
+        note: "تصلح وجبة جاهزة لعدة أيام."
+      }
+    ]
+  },
+  {
+    id: "ground-meat",
+    icon: "🧆",
+    name: "اللحم المفروم",
+    recipes: [
+      {
+        title: "كفتة اللحم المشوية",
+        time: "٢٥ دقيقة",
+        method: "فرن / شواية",
+        ingredients: ["٤٠٠جم لحم مفروم", "بصلة مبشورة معصورة", "بقدونس مفروم", "بهارات، ملح، فلفل", "م.ك زيت"],
+        steps: ["اعجني اللحم مع البصل والبقدونس والبهارات جيدًا.", "شكّليه أصابع على صينية أو أسياخ.", "اشويه على ٢٠٠ درجة ١٥–٢٠ دقيقة.", "قلّبيه ليتحمّر من الجهتين."],
+        note: "العجن الجيد يجعلها متماسكة."
+      },
+      {
+        title: "برجر اللحم بالجبن",
+        time: "٢٠ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٤٠٠جم لحم مفروم", "ملح وفلفل أسود", "شرائح جبن شيدر", "بصل وثوم بودرة", "م.ك زبدة"],
+        steps: ["تبّلي اللحم وشكّلي أقراصًا.", "حمّريها بالزبدة ٣–٤ دقائق لكل وجه.", "ضعي شريحة جبن فوق كل قرص حتى يذوب.", "تُقدّم مع خس وخيار بدون خبز."],
+        note: "يُتجنّب الضغط على القرص ليبقى طريًّا."
+      },
+      {
+        title: "كرات اللحم بالكريمة",
+        time: "٣٠ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٤٠٠جم لحم مفروم", "١ بيضة", "بصل وثوم، بهارات", "١ كوب كريمة طبخ (دايري)", "م.ك زبدة"],
+        steps: ["اخلطي اللحم مع البيض والبصل والبهارات وكوّري كرات.", "حمّريها بالزبدة حتى تحمرّ.", "أضيفي القشطة واخفضي النار.", "اتركيها تغلي خفيفًا ٧ دقائق حتى تتماسك الصلصة."],
+        note: "تُقدّم مع القرنبيط المهروس."
+      },
+      {
+        title: "لحم مفروم بالكوسا (سكيليت)",
+        time: "٢٠ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٤٠٠جم لحم مفروم", "٢ كوسا مكعّبات", "بصل وثوم", "٢ م.ك زيت", "كمون وملح وفلفل"],
+        steps: ["حمّري اللحم المفروم حتى يتفتّت.", "أضيفي البصل والثوم ثم الكوسا.", "قلّبي حتى تطرى الكوسا.", "تبّلي بالكمون والملح والفلفل."],
+        note: "وجبة سريعة في قدر واحد."
+      },
+      {
+        title: "القرنبيط باللحم المفروم",
+        time: "٢٥ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٤٠٠جم لحم مفروم", "½ رأس قرنبيط مبشور", "بصل وثوم", "بهارات", "٢ م.ك زيت أو سمن"],
+        steps: ["حمّري اللحم بالزيت حتى ينضج.", "أضيفي البصل والثوم ثم القرنبيط المبشور.", "قلّبي ٧–١٠ دقائق حتى يطرى القرنبيط.", "تبّلي وقدّمي ساخنًا."],
+        note: "بديل يشبه الكبسة بدون أرز."
+      }
+    ]
+  },
+  {
+    id: "fish",
+    icon: "🐟",
+    name: "السمك",
+    recipes: [
+      {
+        title: "سمك فيليه بالزبدة والليمون",
+        time: "١٥ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٢ فيليه سمك أبيض (هامور / بلطي)", "٢ م.ك زبدة", "عصير ليمونة", "ثوم", "ملح وفلفل"],
+        steps: ["جفّفي السمك وتبّليه بالملح والفلفل.", "حمّريه بالزبدة ٣ دقائق لكل وجه.", "أضيفي الثوم وعصير الليمون.", "اسكبي الصلصة فوقه وقدّمي."],
+        note: "يُتجنّب كثرة التقليب حتى لا يتفتّت."
+      },
+      {
+        title: "سمك بالفرن بالأعشاب",
+        time: "٢٥ دقيقة",
+        method: "فرن",
+        ingredients: ["٢ فيليه سمك", "٣ م.ك زيت زيتون", "ثوم وبقدونس", "بابريكا وملح وفلفل", "شرائح ليمون"],
+        steps: ["سخّني الفرن على ١٩٠ درجة.", "ضعي السمك في صينية ودلّكيه بالزيت والبهارات.", "وزّعي شرائح الليمون فوقه.", "اخبزيه ١٥–٢٠ دقيقة حتى ينضج."],
+        note: "طبق صحي خفيف الرائحة."
+      },
+      {
+        title: "أقراص السمك (كباب سمك)",
+        time: "٢٥ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٤٠٠جم سمك مفروم / مهروس", "١ بيضة", "٢ م.ك دقيق لوز", "بصل أخضر وكزبرة", "بهارات وملح"],
+        steps: ["اخلطي السمك مع البيض والدقيق والأعشاب.", "شكّلي أقراصًا صغيرة.", "حمّريها بالزيت حتى تذهّب الجهتان.", "تُقدّم مع شرائح الليمون."],
+        note: "لذيذة باردة في اليوم التالي."
+      },
+      {
+        title: "سمك مقرمش بدقيق اللوز",
+        time: "٢٠ دقيقة",
+        method: "مقلاة",
+        ingredients: ["٢ فيليه سمك", "٤ م.ك دقيق لوز", "١ بيضة", "بهارات وملح", "زيت للقلي"],
+        steps: ["اغمسي السمك بالبيض ثم بدقيق اللوز المتبّل.", "اقليه بزيت متوسط الحرارة.", "قلّبيه مرة واحدة حتى يذهّب.", "ضعيه على ورق ماصّ ليتصفّى."],
+        note: "بديل صحي للسمك المقلي بالطحين."
+      },
+      {
+        title: "سمك بالكريمة بالفرن",
+        time: "٣٠ دقيقة",
+        method: "فرن",
+        ingredients: ["٢ فيليه سمك", "١ كوب كريمة طبخ (دايري)", "ثوم", "½ كوب جبن مبشور", "ملح وفلفل وبقدونس"],
+        steps: ["سخّني الفرن على ١٩٠ درجة.", "ضعي السمك في صينية ووزّعي الثوم والملح.", "اسكبي القشطة ورشّي الجبن فوقها.", "اخبزيه ٢٠ دقيقة حتى يتحمّر الوجه."],
+        note: "طبق راقٍ وسهل في آنٍ واحد."
+      }
+    ]
+  },
+  {
+    id: "salads",
+    icon: "🥗",
+    name: "السلطات",
+    recipes: [
+      {
+        title: "سلطة خضراء بسيطة",
+        time: "٥ دقائق",
+        method: "بدون طبخ",
+        ingredients: ["خس", "خيار", "جرجير", "زيت زيتون", "عصير ليمون", "ملح"],
+        steps: ["قطّعي الخس والخيار والجرجير.", "تبّلي بزيت الزيتون وعصير الليمون والملح.", "قلّبي وقدّمي."],
+        note: "ترافق أي وجبة."
+      },
+      {
+        title: "سلطة الجرجير بالبارميزان",
+        time: "٥ دقائق",
+        method: "بدون طبخ",
+        ingredients: ["جرجير", "شرائح بارميزان (أو شيدر)", "زيت زيتون", "عصير ليمون"],
+        steps: ["ضعي الجرجير في طبق.", "وزّعي شرائح الجبن فوقه.", "تبّلي بزيت الزيتون والليمون."],
+        note: "سلطة خفيفة وأنيقة."
+      },
+      {
+        title: "سلطة الخيار بالزبادي",
+        time: "٥ دقائق",
+        method: "بدون طبخ",
+        ingredients: ["خيار مقطّع", "زبادي كامل الدسم", "نعناع", "ثوم", "ملح"],
+        steps: ["اخلطي الزبادي مع الثوم المهروس والنعناع والملح.", "أضيفي الخيار المقطّع.", "قلّبي وقدّمي باردة."],
+        note: "ترافق الكفتة والمشويات."
+      },
+      {
+        title: "سلطة الأفوكادو",
+        time: "٧ دقائق",
+        method: "بدون طبخ",
+        ingredients: ["أفوكادو", "خيار", "بقدونس", "زيت زيتون", "عصير ليمون"],
+        steps: ["قطّعي الأفوكادو والخيار مكعّبات.", "أضيفي البقدونس المفروم.", "تبّلي بزيت الزيتون والليمون والملح."],
+        note: "دسمة ومشبعة."
+      },
+      {
+        title: "كول سلو",
+        time: "١٠ دقائق",
+        method: "بدون طبخ",
+        ingredients: ["كرنب مبشور", "مايونيز", "قليل خل", "ملح"],
+        steps: ["ابشري الكرنب ناعمًا.", "اخلطيه مع المايونيز والخل والملح.", "اتركيه يبرد في الثلاجة قبل التقديم."],
+        note: "تدوم في الثلاجة عدة أيام."
+      },
+      {
+        title: "سلطة الجبن والخضار",
+        time: "٧ دقائق",
+        method: "بدون طبخ",
+        ingredients: ["خس", "خيار", "فلفل رومي", "مكعّبات جبن", "زيت زيتون"],
+        steps: ["قطّعي الخس والخيار والفلفل.", "أضيفي مكعّبات الجبن.", "تبّلي بزيت الزيتون والملح."],
+        note: "سلطة مشبعة تكفي كوجبة خفيفة."
+      }
+    ]
+  }
+];
+
+const ALLOWED = ["اللحم، الدجاج، السمك، البيض", "الزبدة، السمن، زيت الزيتون", "الأجبان المطبوخة والكريمة (كاملة الدسم من الحليب)", "الكوسا، القرنبيط، البروكلي، الفلفل", "الخس، الخيار، الجرجير، النعناع", "الملح، البهارات، الثوم، الليمون"];
+const FORBIDDEN = ["الأرز، الخبز، المكرونة، البرغل", "البطاطس والذرة", "السكر والعسل والتمر", "الدقيق الأبيض والمعجنات", "العصائر والمشروبات المحلّاة", "الإكثار من الطماطم والبصل", "القشطة النباتية والمايونيز المحلّى"];
+
+const TIPS = [
+  { t: "القشطة / الكريمة", d: "أغلب ما يُباع باسم «قشطة» أو «قيمر» مخلوط بزيت نباتي وسكر وليس قشطة حقيقية. ✅ البديل: «كريمة طبخ كاملة الدسم» المصنوعة من الحليب (مثل كريمة الطهي كاملة الدسم من المراعي)، أو «كريمة خفق» حيوانية. القاعدة: إذا ظهرت كلمة «زيت نباتي» في المكوّنات فهي غير مناسبة." },
+  { t: "المايونيز", d: "معظم الأنواع تحتوي على سكر، والنوع «الخفيف / اللايت» أسوأ. ✅ البديل: مايونيز خالٍ من السكر، أو تحضيره منزليًّا: صفار بيضتين + ملعقة خردل + كوب زيت زيتون خفيف + عصير ليمون + ملح، تُخفق حتى تتماسك." },
+  { t: "قاعدة عامة", d: "اقرئي قائمة المكوّنات دائمًا، وتجنّبي كل ما يحتوي «زيت نباتي / زيت مهدرج / سكر / شراب جلوكوز / نشا»." }
+];
+
+</script>
+<script>
+  // تعبئة المكوّنات المسموحة والممنوعة
+  document.getElementById('allowed').innerHTML = ALLOWED.map(x=>`<li>${x}</li>`).join('');
+  document.getElementById('forbidden').innerHTML = FORBIDDEN.map(x=>`<li>${x}</li>`).join('');
+  document.getElementById('tips').innerHTML = TIPS.map(t=>`<div class="tip"><strong>${t.t}</strong><span>${t.d}</span></div>`).join('');
+
+  // أزرار الفئات
+  const chips = document.getElementById('chips');
+  CATEGORIES.forEach(c=>{
+    const b=document.createElement('button');
+    b.className='chip';b.dataset.cat=c.id;
+    b.textContent=`${c.icon} ${c.name}`;
+    chips.appendChild(b);
+  });
+
+  // بناء الوصفات
+  function recipeHTML(r){
+    return `<article class="recipe">
+      <h3>${r.title}</h3>
+      <div class="meta"><span class="badge">⏱ ${r.time}</span><span class="badge">🔥 ${r.method}</span></div>
+      <div class="rgrid">
+        <div class="block"><h4>المكوّنات</h4><ul class="ing">${r.ingredients.map(i=>`<li>${i}</li>`).join('')}</ul></div>
+        <div class="block"><h4>طريقة التحضير</h4><ol class="steps">${r.steps.map(s=>`<li>${s}</li>`).join('')}</ol></div>
+      </div>
+      ${r.note?`<div class="note">${r.note}</div>`:''}
+    </article>`;
+  }
+
+  function render(filterCat, query){
+    const content=document.getElementById('content');
+    const q=(query||'').trim();
+    let html='';let total=0;
+    CATEGORIES.forEach(c=>{
+      if(filterCat!=='all' && c.id!==filterCat) return;
+      const recipes=c.recipes.filter(r=>{
+        if(!q) return true;
+        const hay=(r.title+' '+c.name+' '+r.ingredients.join(' ')+' '+r.method).toLowerCase();
+        return hay.includes(q.toLowerCase());
+      });
+      if(recipes.length===0) return;
+      total+=recipes.length;
+      html+=`<div class="cat-head"><span class="ic">${c.icon}</span><span>${c.name}</span><span class="count">${toAr(recipes.length)} وصفة</span></div>`;
+      html+=recipes.map(recipeHTML).join('');
+    });
+    content.innerHTML=html;
+    document.getElementById('noresult').style.display = total===0 ? 'block':'none';
+    // إخفاء المقدّمة عند البحث أو اختيار فئة
+    document.getElementById('intro').style.display = (q || filterCat!=='all') ? 'none':'block';
+  }
+
+  function toAr(n){return String(n).replace(/[0-9]/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);}
+
+  let curCat='all';
+  render('all','');
+
+  // تفعيل أزرار الفئات
+  chips.addEventListener('click',e=>{
+    const btn=e.target.closest('.chip');if(!btn)return;
+    chips.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    curCat=btn.dataset.cat;
+    document.getElementById('search').value='';
+    render(curCat,'');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  // البحث
+  const search=document.getElementById('search');
+  search.addEventListener('input',()=>{
+    if(search.value.trim()){
+      chips.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chips.querySelector('[data-cat="all"]').classList.add('active');
+      curCat='all';
+    }
+    render(curCat,search.value);
+  });
+
+  // زر العودة للأعلى
+  const topbtn=document.getElementById('topbtn');
+  window.addEventListener('scroll',()=>{topbtn.style.display=window.scrollY>500?'block':'none';});
+  topbtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>

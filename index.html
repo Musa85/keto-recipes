@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>وصفات الكيتو — دليل الوجبات المنزلية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#4E6B3D;
+    --green-dark:#3a5230;
+    --cream:#FBF8F1;
+    --card:#ffffff;
+    --soft:#EAF1E2;
+    --line:#dfd8c8;
+    --text:#2a2a26;
+    --muted:#6a6a60;
+    --red:#b23a3a;
+    --shadow:0 4px 18px rgba(60,70,40,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Tajawal',system-ui,'Segoe UI',Tahoma,sans-serif;
+    background:var(--cream);
+    color:var(--text);
+    font-size:20px;
+    line-height:1.9;
+    -webkit-text-size-adjust:100%;
+  }
+  /* ===== الهيدر ===== */
+  header{
+    background:linear-gradient(135deg,var(--green),var(--green-dark));
+    color:#fff;
+    padding:34px 20px 28px;
+    text-align:center;
+  }
+  header .eyebrow{font-size:18px;opacity:.92;font-weight:500;letter-spacing:1px}
+  header h1{font-size:46px;font-weight:800;margin:6px 0 8px}
+  header p.sub{font-size:20px;opacity:.95;font-weight:400;max-width:760px;margin:0 auto}
+
+  .wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+  /* ===== شريط البحث ===== */
+  .searchbar{
+    position:sticky;top:0;z-index:50;
+    background:var(--cream);
+    padding:16px 0 10px;
+    border-bottom:1px solid var(--line);
+  }
+  .searchbar .inner{max-width:900px;margin:0 auto;padding:0 16px}
+  #search{
+    width:100%;
+    font-family:inherit;
+    font-size:24px;
+    padding:18px 56px 18px 20px;
+    border:3px solid var(--green);
+    border-radius:16px;
+    background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" stroke="%234E6B3D" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>') no-repeat right 18px center;
+    color:var(--text);
+    outline:none;
+    box-shadow:var(--shadow);
+  }
+  #search:focus{border-color:var(--green-dark)}
+  #search::placeholder{color:#9a9a8e}
+  .hint{font-size:16px;color:var(--muted);margin-top:8px;text-align:center}
+
+  /* ===== أزرار الفئات ===== */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:16px 16px 4px;max-width:900px;margin:0 auto}
+  .chip{
+    font-family:inherit;font-size:19px;font-weight:700;
+    padding:11px 18px;border-radius:999px;
+    border:2px solid var(--green);background:#fff;color:var(--green-dark);
+    cursor:pointer;transition:.15s;
+  }
+  .chip:hover{background:var(--soft)}
+  .chip.active{background:var(--green);color:#fff}
+
+  /* ===== الأقسام التعريفية ===== */
+  section.intro{margin:22px 0}
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px;
+  }
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .col h3{font-size:24px;margin-bottom:10px}
+  .col.ok h3{color:var(--green-dark)}
+  .col.no h3{color:var(--red)}
+  .col ul{list-style:none}
+  .col li{padding:7px 0;font-size:19px;border-bottom:1px dashed #eee}
+  .col li:last-child{border:none}
+  .col.ok li::before{content:"✓ ";color:var(--green);font-weight:800}
+  .col.no li::before{content:"✕ ";color:var(--red);font-weight:800}
+
+  .measures{font-size:18px;background:var(--soft);border-radius:14px;padding:16px 20px;color:var(--green-dark);text-align:center;font-weight:500}
+
+  .tips h2{font-size:26px;color:var(--green-dark);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .tip{margin-bottom:14px;padding-right:14px;border-right:4px solid var(--green);}
+  .tip strong{font-size:21px;color:var(--green-dark);display:block;margin-bottom:2px}
+  .tip span{font-size:18px;color:#444}
+
+  /* ===== عناوين الفئات ===== */
+  .cat-head{
+    font-size:32px;font-weight:800;color:#fff;
+    background:var(--green);border-radius:14px;
+    padding:14px 22px;margin:30px 0 18px;
+    display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);
+  }
+  .cat-head .ic{font-size:36px}
+  .cat-head .count{margin-right:auto;font-size:18px;font-weight:500;background:rgba(255,255,255,.2);padding:4px 14px;border-radius:999px}
+
+  /* ===== بطاقة الوصفة ===== */
+  .recipe{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:24px 26px;margin-bottom:20px;box-shadow:var(--shadow);
+  }
+  .recipe h3{font-size:27px;color:var(--green-dark);margin-bottom:6px}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+  .badge{font-size:17px;font-weight:700;background:var(--soft);color:var(--green-dark);padding:6px 14px;border-radius:999px}
+  .rgrid{display:grid;grid-template-columns:1fr 1.3fr;gap:24px}
+  .block h4{font-size:21px;color:var(--green-dark);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--soft)}
+  .ing{list-style:none}
+  .ing li{padding:6px 0;font-size:19px;display:flex;gap:8px}
+  .ing li::before{content:"●";color:var(--green);font-size:13px;margin-top:9px}
+  .steps{list-style:none;counter-reset:s}
+  .steps li{counter-increment:s;padding:8px 0 8px 0;font-size:19px;display:flex;gap:12px;align-items:flex-start}
+  .steps li::before{
+    content:counter(s);
+    flex:0 0 auto;width:32px;height:32px;border-radius:50%;
+    background:var(--green);color:#fff;font-weight:800;font-size:18px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .note{
+    margin-top:18px;background:#FFF8E6;border:1px solid #F0E2B8;border-radius:12px;
+    padding:12px 16px;font-size:18px;color:#7a5e1a;
+  }
+  .note::before{content:"💡 ";}
+
+  .noresult{text-align:center;padding:60px 20px;font-size:24px;color:var(--muted)}
+
+  footer{text-align:center;padding:34px 16px;color:var(--muted);font-size:17px}
+
+  .topbtn{
+    position:fixed;bottom:24px;left:24px;z-index:60;
+    width:58px;height:58px;border-radius:50%;border:none;
+    background:var(--green);color:#fff;font-size:26px;cursor:pointer;
+    box-shadow:0 6px 16px rgba(0,0,0,.22);display:none;
+  }
+
+  @media (max-width:680px){
+    body{font-size:19px}
+    header h1{font-size:36px}
+    .two-col,.rgrid{grid-template-columns:1fr}
+    .recipe{padding:20px 18px}
+    #search{font-size:21px}
+  }
+
+  /* ===== الطباعة / PDF ===== */
+  @media print{
+    .searchbar,.chips,.topbtn{display:none!important}
+    body{background:#fff;font-size:13pt}
+    .recipe,.panel{box-shadow:none;page-break-inside:avoid;border-color:#ccc}
+    .cat-head{page-break-after:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    header,.cat-head,.badge,.steps li::before,.col li::before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">نظام غذائي منخفض الكربوهيدرات</div>
+  <h1>وصفات الكيتو 🍳</h1>
+  <p class="sub">دليل وجبات منزلية — ٣٠ وصفة وقائمة سلطات. مكوّنات بسيطة ومتوفرة، وخطوات سهلة، تكفي كل وصفة شخصين تقريبًا.</p>
+</header>
+
+<div class="searchbar">
+  <div class="inner">
+    <input id="search" type="search" inputmode="search" placeholder="اكتبي اسم الوجبة… مثل: دجاج، سمك، عجة">
+    <div class="hint">اكتبي اسم أي مكوّن أو وجبة وستظهر لكِ الوصفات المناسبة فورًا</div>
+  </div>
+</div>
+
+<div class="chips" id="chips">
+  <button class="chip active" data-cat="all">الكل</button>
+</div>
+
+<div class="wrap">
+
+  <section class="intro" id="intro">
+    <div class="panel">
+      <div class="two-col">
+        <div class="col ok"><h3>✅ مكوّنات مسموحة</h3><ul id="allowed"></ul></div>
+        <div class="col no"><h3>⛔ مكوّنات ممنوعة</h3><ul id="forbidden"></ul></div>
+      </div>
+    </div>
+    <div class="measures">
+      📏 <strong>المقاييس:</strong> «م.ك» = ملعقة كبيرة · «م.ص» = ملعقة صغيرة · «كوب» = ٢٤٠ مل · «فص» = فص ثوم
+    </div>
+    <div class="panel tips" style="margin-top:18px">
+      <h2>⚠️ تنبيهات مهمة عند الشراء</h2>
+      <div id="tips"></div>
+    </div>
+  </section>
+
+  <main id="content"></main>
+
+  <div class="noresult" id="noresult" style="display:none">لا توجد وصفة بهذا الاسم 🤔<br>جرّبي كلمة أخرى مثل «بيض» أو «لحم»</div>
+
+</div>
+
+<footer>دليل وصفات الكيتو — جميع الوصفات منخفضة الكربوهيدرات ♥</footer>
+<button class="topbtn" id="topbtn" title="للأعلى">▲</button>
+
+<script src="data.js"></script>
+<script>
+  // تعبئة المكوّنات المسموحة والممنوعة
+  document.getElementById('allowed').innerHTML = ALLOWED.map(x=>`<li>${x}</li>`).join('');
+  document.getElementById('forbidden').innerHTML = FORBIDDEN.map(x=>`<li>${x}</li>`).join('');
+  document.getElementById('tips').innerHTML = TIPS.map(t=>`<div class="tip"><strong>${t.t}</strong><span>${t.d}</span></div>`).join('');
+
+  // أزرار الفئات
+  const chips = document.getElementById('chips');
+  CATEGORIES.forEach(c=>{
+    const b=document.createElement('button');
+    b.className='chip';b.dataset.cat=c.id;
+    b.textContent=`${c.icon} ${c.name}`;
+    chips.appendChild(b);
+  });
+
+  // بناء الوصفات
+  function recipeHTML(r){
+    return `<article class="recipe">
+      <h3>${r.title}</h3>
+      <div class="meta"><span class="badge">⏱ ${r.time}</span><span class="badge">🔥 ${r.method}</span></div>
+      <div class="rgrid">
+        <div class="block"><h4>المكوّنات</h4><ul class="ing">${r.ingredients.map(i=>`<li>${i}</li>`).join('')}</ul></div>
+        <div class="block"><h4>طريقة التحضير</h4><ol class="steps">${r.steps.map(s=>`<li>${s}</li>`).join('')}</ol></div>
+      </div>
+      ${r.note?`<div class="note">${r.note}</div>`:''}
+    </article>`;
+  }
+
+  function render(filterCat, query){
+    const content=document.getElementById('content');
+    const q=(query||'').trim();
+    let html='';let total=0;
+    CATEGORIES.forEach(c=>{
+      if(filterCat!=='all' && c.id!==filterCat) return;
+      const recipes=c.recipes.filter(r=>{
+        if(!q) return true;
+        const hay=(r.title+' '+c.name+' '+r.ingredients.join(' ')+' '+r.method).toLowerCase();
+        return hay.includes(q.toLowerCase());
+      });
+      if(recipes.length===0) return;
+      total+=recipes.length;
+      html+=`<div class="cat-head"><span class="ic">${c.icon}</span><span>${c.name}</span><span class="count">${toAr(recipes.length)} وصفة</span></div>`;
+      html+=recipes.map(recipeHTML).join('');
+    });
+    content.innerHTML=html;
+    document.getElementById('noresult').style.display = total===0 ? 'block':'none';
+    // إخفاء المقدّمة عند البحث أو اختيار فئة
+    document.getElementById('intro').style.display = (q || filterCat!=='all') ? 'none':'block';
+  }
+
+  function toAr(n){return String(n).replace(/[0-9]/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);}
+
+  let curCat='all';
+  render('all','');
+
+  // تفعيل أزرار الفئات
+  chips.addEventListener('click',e=>{
+    const btn=e.target.closest('.chip');if(!btn)return;
+    chips.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    curCat=btn.dataset.cat;
+    document.getElementById('search').value='';
+    render(curCat,'');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  // البحث
+  const search=document.getElementById('search');
+  search.addEventListener('input',()=>{
+    if(search.value.trim()){
+      chips.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chips.querySelector('[data-cat="all"]').classList.add('active');
+      curCat='all';
+    }
+    render(curCat,search.value);
+  });
+
+  // زر العودة للأعلى
+  const topbtn=document.getElementById('topbtn');
+  window.addEventListener('scroll',()=>{topbtn.style.display=window.scrollY>500?'block':'none';});
+  topbtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>
