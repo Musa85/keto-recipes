@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل المسموح والممنوع — الكيتو الصارم / العادي / لايف ستايل</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Cairo:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F0D0A; --bg-2: #15110C; --surface: #1A1612; --surface-2: #211B14;
+    --surface-3: #2A2218; --border: #2D2519; --border-2: #3D3221;
+    --text: #F5EBD8; --text-dim: #A89882; --text-faint: #6B5F4D;
+    --accent: #E8A33D; --accent-2: #D4892A;
+    --strict: #C85A4A; --strict-glow: rgba(200,90,74,.2);
+    --normal: #E8A33D; --normal-glow: rgba(232,163,61,.2);
+    --lifestyle: #7FA86B; --lifestyle-glow: rgba(127,168,107,.2);
+    --yes: #7FA86B; --cond: #E8A33D; --no: #C85A4A;
+    --font-display: 'Reem Kufi', serif; --font-body: 'Cairo', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --mode-color: var(--accent); --mode-glow: var(--accent-glow);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:var(--font-body); background:var(--bg); color:var(--text);
+    line-height:1.6; min-height:100vh;
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(232,163,61,.05) 0%, transparent 42%),
+      radial-gradient(circle at 88% 92%, rgba(127,168,107,.04) 0%, transparent 42%);
+    background-attachment:fixed;
+  }
+  body::before {
+    content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.008) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.008) 1px, transparent 1px);
+    background-size:32px 32px;
+  }
+  .container { max-width:1100px; margin:0 auto; padding:20px 14px 70px; position:relative; z-index:1; }
+  h1,h2,h3 { font-family:var(--font-display); font-weight:700; }
+
+  /* HEADER */
+  header { border-bottom:1px solid var(--border); padding-bottom:18px; margin-bottom:18px; }
+  .brand { display:flex; align-items:center; gap:11px; margin-bottom:6px; }
+  .brand-dot { width:11px; height:11px; border-radius:50%; background:var(--mode-color);
+    box-shadow:0 0 16px var(--mode-color); animation:pulse 2.4s ease-in-out infinite; transition:.3s; }
+  @keyframes pulse { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(.82);} }
+  .brand h1 { font-size:23px; letter-spacing:-.3px; }
+  .brand-sub { color:var(--text-dim); font-size:13.5px; margin-bottom:14px; }
+
+  /* PHASE SELECTOR */
+  .phase-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+  .phase-btn {
+    flex:1; min-width:130px; cursor:pointer; border:1px solid var(--border-2);
+    background:var(--surface); color:var(--text-dim); border-radius:13px;
+    padding:11px 12px; text-align:center; transition:.18s; font-family:var(--font-body);
+  }
+  .phase-btn .pb-emoji { font-size:18px; display:block; margin-bottom:3px; }
+  .phase-btn .pb-name { font-weight:700; font-size:14px; color:var(--text); }
+  .phase-btn .pb-goal { font-size:11px; color:var(--text-faint); margin-top:2px; }
+  .phase-btn:hover { border-color:var(--mode-color); }
+  .phase-btn.active { border-color:var(--mode-color); background:var(--mode-glow);
+    box-shadow:0 0 0 1px var(--mode-color) inset, 0 6px 22px -8px var(--mode-glow); }
+  .phase-btn.active .pb-name { color:var(--mode-color); }
+
+  /* CONTROLS */
+  .controls { display:flex; gap:9px; flex-wrap:wrap; align-items:center; margin:14px 0 10px; }
+  .search { flex:1; min-width:200px; position:relative; }
+  .search input {
+    width:100%; background:var(--surface); border:1px solid var(--border-2); color:var(--text);
+    border-radius:11px; padding:10px 38px 10px 12px; font-family:var(--font-body); font-size:14px;
+  }
+  .search input:focus { outline:none; border-color:var(--mode-color); }
+  .search::before { content:'🔍'; position:absolute; right:12px; top:50%; transform:translateY(-50%); opacity:.5; font-size:13px; }
+  .filters { display:flex; gap:6px; flex-wrap:wrap; }
+  .fchip {
+    cursor:pointer; border:1px solid var(--border-2); background:var(--surface);
+    color:var(--text-dim); border-radius:20px; padding:7px 13px; font-size:12.5px;
+    font-weight:600; transition:.16s; user-select:none;
+  }
+  .fchip:hover { border-color:var(--text-dim); }
+  .fchip.active { color:#fff; }
+  .fchip[data-f="all"].active { background:var(--surface-3); border-color:var(--text-dim); color:var(--text); }
+  .fchip[data-f="yes"].active { background:var(--yes); border-color:var(--yes); }
+  .fchip[data-f="cond"].active { background:var(--cond); border-color:var(--cond); color:#1a1207; }
+  .fchip[data-f="no"].active { background:var(--no); border-color:var(--no); }
+
+  /* LEGEND */
+  .legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--text-dim); font-size:12px; margin-bottom:8px; }
+  .legend span { display:inline-flex; align-items:center; gap:5px; }
+  .dot { width:9px; height:9px; border-radius:50%; display:inline-block; }
+  .dot.yes{background:var(--yes);} .dot.cond{background:var(--cond);} .dot.no{background:var(--no);}
+
+  .phase-note {
+    background:var(--mode-glow); border:1px solid var(--mode-color); border-radius:13px;
+    padding:12px 15px; margin-bottom:18px; font-size:13.5px; color:var(--text);
+    display:flex; gap:10px; align-items:flex-start; transition:.3s;
+  }
+  .phase-note b { color:var(--mode-color); }
+
+  /* CATEGORY */
+  .cat { margin-bottom:26px; }
+  .cat-h { display:flex; align-items:center; gap:9px; margin-bottom:11px; padding-bottom:7px; border-bottom:1px solid var(--border); }
+  .cat-h .ci { font-size:20px; }
+  .cat-h h2 { font-size:17px; }
+  .cat-h .cc { margin-right:auto; color:var(--text-faint); font-size:12px; font-family:var(--font-mono); }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:11px; }
+
+  .item {
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:13px 14px; transition:.16s; position:relative; overflow:hidden;
+  }
+  .item::before { content:''; position:absolute; top:0; right:0; width:4px; height:100%; background:var(--text-faint); opacity:.5; transition:.2s; }
+  .item.s-yes::before{background:var(--yes);} .item.s-cond::before{background:var(--cond);} .item.s-no::before{background:var(--no);}
+  .item:hover { border-color:var(--border-2); transform:translateY(-1px); }
+  .item-head { display:flex; align-items:center; gap:9px; margin-bottom:9px; }
+  .item-head .ie { font-size:19px; }
+  .item-head .inm { font-weight:700; font-size:14.5px; }
+  .item-head .badge {
+    margin-right:auto; font-size:11px; font-weight:800; padding:3px 9px; border-radius:8px;
+    white-space:nowrap;
+  }
+  .badge.yes { background:rgba(127,168,107,.16); color:var(--yes); }
+  .badge.cond { background:rgba(232,163,61,.16); color:var(--cond); }
+  .badge.no { background:rgba(200,90,74,.16); color:var(--no); }
+
+  .pills { display:flex; gap:5px; margin-bottom:8px; flex-wrap:wrap; }
+  .pill {
+    font-size:11px; font-weight:700; padding:3px 8px; border-radius:7px;
+    border:1px solid var(--border-2); display:inline-flex; align-items:center; gap:4px;
+    background:var(--bg-2); transition:.15s;
+  }
+  .pill .pl { color:var(--text-faint); font-weight:600; font-size:10px; }
+  .pill .pv-yes{color:var(--yes);} .pill .pv-cond{color:var(--cond);} .pill .pv-no{color:var(--no);}
+  .pill.dim { opacity:.32; }
+  .pill.focus { border-color:var(--mode-color); box-shadow:0 0 0 1px var(--mode-glow) inset; }
+
+  .cond-note {
+    font-size:12.5px; color:var(--text-dim); line-height:1.55; padding-top:7px;
+    border-top:1px dashed var(--border); margin-top:2px;
+  }
+  .cond-note .ck { color:var(--cond); font-weight:700; }
+  .cond-note .ph-cond { display:block; margin-top:4px; }
+  .cond-note .ph-cond b { font-family:var(--font-display); }
+
+  .empty { text-align:center; color:var(--text-faint); padding:50px 0; font-size:15px; display:none; }
+
+  footer { margin-top:40px; padding-top:18px; border-top:1px solid var(--border);
+    color:var(--text-faint); font-size:12px; text-align:center; line-height:1.8; }
+
+  @media (max-width:560px){ .grid{grid-template-columns:1fr;} .brand h1{font-size:20px;} }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="brand"><span class="brand-dot" id="brandDot"></span><h1>دليل المسموح والممنوع</h1></div>
+    <div class="brand-sub">كل صنف ووضعه في الأنواع الثلاثة — مع <b>الشرط</b> الذي يجعله مسموحًا. اختر النوع للتركيز عليه.</div>
+
+    <div class="phase-bar" id="phaseBar"></div>
+
+    <div class="phase-note" id="phaseNote"></div>
+
+    <div class="controls">
+      <div class="search"><input id="search" type="text" placeholder="ابحث عن صنف… (مثال: ستيفيا، زبادي، قهوة)"></div>
+      <div class="filters" id="filters">
+        <span class="fchip active" data-f="all">الكل</span>
+        <span class="fchip" data-f="yes">✓ مسموح</span>
+        <span class="fchip" data-f="cond">⚠ مشروط</span>
+        <span class="fchip" data-f="no">✕ ممنوع</span>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i class="dot yes"></i> مسموح</span>
+      <span><i class="dot cond"></i> مشروط (بشرط)</span>
+      <span><i class="dot no"></i> ممنوع</span>
+      <span style="color:var(--text-faint)">الوضع يتغيّر حسب النوع المختار</span>
+    </div>
+  </header>
+
+  <div id="cats"></div>
+  <div class="empty" id="empty">لا توجد نتائج مطابقة 🤔</div>
+
+  <footer>
+    دليل إرشادي عام لنظام الكيتو — ليس استشارة طبية. الكميات تقريبية وتعتمد على إجمالي الكارب الصافي اليومي
+    (الصارم ≈ 20جم، العادي ≈ 20–40جم، لايف ستايل ≈ 40–70جم).<br>
+    صُمّم ليُكمل تطبيق «كيتو الفريزر».
+  </footer>
+</div>
+
+<script>
+const PHASES = {
+  strict:    { key:'strict',    emoji:'🔴', name:'الكيتو الصارم',  goal:'دخول الحالة الكيتونية', color:'var(--strict)',    glow:'var(--strict-glow)',
+    note:'الهدف دخول الكيتوزس بأسرع وقت. صافي الكارب ≈ <b>20جم/يوم</b>. تجنّب كل ما يرفع السكر، التزم بالبروتين والدهون والخضار الورقية. حتى المسموح «المشروط» يُؤخذ بأقل كمية.' },
+  normal:    { key:'normal',    emoji:'🟠', name:'الكيتو العادي',  goal:'إنقاص الوزن',          color:'var(--normal)',    glow:'var(--normal-glow)',
+    note:'بعد ثبات الكيتوزس، الهدف خسارة الوزن. صافي الكارب ≈ <b>20–40جم/يوم</b>. مرونة أكبر مع التوت والزبادي اليوناني والخضار، مع مراقبة الكمية.' },
+  lifestyle: { key:'lifestyle', emoji:'🟢', name:'كيتو لايف ستايل', goal:'المحافظة على الوزن',   color:'var(--lifestyle)', glow:'var(--lifestyle-glow)',
+    note:'مرحلة المحافظة بعد بلوغ الوزن المستهدف. صافي الكارب ≈ <b>40–70جم/يوم</b>. أوسع مرونة، يُسمح بكميات أكبر من الكارب «النظيف» مع الحفاظ على نمط الكيتو.' }
+};
+
+// y = مسموح | c = مشروط | n = ممنوع
+// cond: نص شرط عام. pc: شروط خاصة بكل نوع {strict,normal,lifestyle}
+const DATA = [
+ // ===== المحليات =====
+ { cat:'sw', e:'🌿', n:'ستيفيا (نقية)', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> أن تكون نقية بدون سكر أو مالتوديكسترين مُضاف (اقرأ الملصق). صفر تأثير على سكر الدم.',
+   pc:{strict:'القهوة + ستيفيا نقية = ✅ مسموح حتى في الصارم.'} },
+ { cat:'sw', e:'🧊', n:'إريثريتول', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> نقي. لا يُحتسب في الكارب الصافي عمليًّا. الأفضل للخبز الكيتوني.' },
+ { cat:'sw', e:'🍈', n:'مونك فروت (راهب الفاكهة)', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> نقي أو مخلوط بإريثريتول فقط — لا يحتوي سكرًا مضافًا.' },
+ { cat:'sw', e:'💧', n:'سكرالوز', s:{strict:'c',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> يُفضّل السائل النقي؛ مسحوق «سبليندا» المعبأ يحتوي مالتوديكسترين يرفع السكر قليلًا.',
+   pc:{strict:'بالصارم: تجنّب المسحوق المعبأ، اكتفِ بقطرات سائلة.'} },
+ { cat:'sw', e:'🌳', n:'إكسيليتول', s:{strict:'c',normal:'c',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> باعتدال — يحتسب نصف كاربه تقريبًا، وقد يسبب اضطراب هضم. (⚠ سام للكلاب).' },
+ { cat:'sw', e:'🍬', n:'مالتيتول', s:{strict:'n',normal:'n',lifestyle:'c'},
+   cond:'يرفع سكر الدم بوضوح رغم أنه «كحول سكري». موجود في كثير من منتجات «الكيتو/الخالية من السكر» التجارية — احذره.',
+   pc:{lifestyle:'لايف ستايل: بكمية ضئيلة جدًا فقط مع احتساب أثره.'} },
+ { cat:'sw', e:'🍯', n:'العسل / شراب القيقب / الأغاف', s:{strict:'n',normal:'n',lifestyle:'n'},
+   cond:'سكر صافٍ — يكسر الكيتوزس فورًا. لا فرق بين الطبيعي والمصنّع هنا.' },
+ { cat:'sw', e:'🟤', n:'سكر القصب / الأبيض / البني / جوز الهند', s:{strict:'n',normal:'n',lifestyle:'n'},
+   cond:'ممنوع في كل المراحل. سكر جوز الهند ليس استثناءً (مؤشره الجلايسيمي لا يزال مرتفعًا).' },
+ { cat:'sw', e:'🌴', n:'التمر / الفواكه المجففة', s:{strict:'n',normal:'n',lifestyle:'n'},
+   cond:'كثافة سكرية عالية جدًا (تمرة واحدة ≈ 16–18جم كارب). تُكسر الكيتوزس بسهولة.' },
+
+ // ===== المشروبات =====
+ { cat:'dr', e:'💦', n:'الماء (وماء غازي سادة)', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'أساس النظام. الماء الغازي السادة (بدون سكر/نكهات سكرية) مسموح ومفيد.' },
+ { cat:'dr', e:'☕', n:'قهوة سوداء', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'مسموحة تمامًا بدون سكر. أضف ستيفيا/إريثريتول للتحلية، وقشطة ثقيلة أو زبدة (بوليت بروف) للدهون.' },
+ { cat:'dr', e:'🍵', n:'شاي (أخضر/أسود/أعشاب)', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'بدون سكر. الأعشاب (نعناع، بابونج، قرفة) خيار ممتاز.' },
+ { cat:'dr', e:'🥛', n:'قهوة/مشروب بالحليب البقري', s:{strict:'c',normal:'c',lifestyle:'c'},
+   cond:'<span class="ck">الشرط:</span> الحليب فيه لاكتوز (سكر الحليب) ≈ 12جم/كوب. رشّة بسيطة (splash) مقبولة؛ الكوب الكامل لا.',
+   pc:{strict:'بالصارم: استبدله بكريمة ثقيلة أو حليب لوز/جوز هند غير محلى.', normal:'كمية محدودة محسوبة.', lifestyle:'كوب صغير أحيانًا مع الاحتساب.'} },
+ { cat:'dr', e:'🥤', n:'مشروبات دايت غازية', s:{strict:'c',normal:'c',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> خالية سكر، لكن قد تثير الرغبة في الحلويات لدى البعض وتعيق التقدّم.',
+   pc:{strict:'يُفضّل تجنّبها بالصارم حتى لا تبطئ دخول الكيتوزس.', lifestyle:'باعتدال لا بأس.'} },
+ { cat:'dr', e:'🧃', n:'عصائر الفواكه (حتى الطبيعية)', s:{strict:'n',normal:'n',lifestyle:'n'},
+   cond:'سكر مركّز سريع الامتصاص. حتى «الطازج 100%» ممنوع.' },
+ { cat:'dr', e:'🍺', n:'الكحول (نبيذ جاف/سبيرت)', s:{strict:'n',normal:'c',lifestyle:'c'},
+   cond:'<span class="ck">الشرط:</span> الجاف فقط وبكمية قليلة جدًا؛ يوقف حرق الدهون مؤقتًا. البيرة والكوكتيلات ممنوعة.',
+   pc:{strict:'ممنوع بالصارم (يعطّل الكيتوزس).'} },
+
+ // ===== الألبان والأجبان =====
+ { cat:'da', e:'🧀', n:'الأجبان الصلبة (شيدر/موزاريلا/بارميزان)', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'لاكتوزها منخفض جدًا بعد التعتيق. الشيدر والموزاريلا أساس في وصفاتك — مسموحة بثقة.' },
+ { cat:'da', e:'🧈', n:'الجبن الكريمي / القشطة الثقيلة', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'دهون عالية وكارب منخفض. ممتازة للصلصات والحشوات.' },
+ { cat:'da', e:'🥣', n:'زبادي يوناني كامل الدسم (سادة)', s:{strict:'c',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> كامل الدسم + سادة + بدون سكر/نكهات مُضافة. يحوي ≈ 4–6جم كارب/100جم.',
+   pc:{strict:'بالصارم: كمية صغيرة محسوبة (لا أكثر من 100جم) ضمن سقف الكارب.', normal:'باعتدال مع احتساب الكارب.', lifestyle:'مسموح بحرية أكبر.'} },
+ { cat:'da', e:'🥛', n:'اللبنة', s:{strict:'c',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> مثل الزبادي اليوناني — سادة وكاملة الدسم، تُحتسب كميتها.' },
+ { cat:'da', e:'🐄', n:'الحليب البقري العادي', s:{strict:'n',normal:'c',lifestyle:'c'},
+   cond:'لاكتوز مرتفع (≈12جم/كوب). بدّله بحليب لوز/جوز هند غير محلّى.',
+   pc:{normal:'رشّات صغيرة فقط.', lifestyle:'كميات صغيرة محسوبة.'} },
+ { cat:'da', e:'🥥', n:'حليب اللوز/جوز الهند غير المحلّى', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> «غير محلّى» (Unsweetened). بديل ممتاز للحليب في كل المراحل.' },
+
+ // ===== البروتينات =====
+ { cat:'pr', e:'🍗', n:'الدجاج واللحوم والأسماك', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'أساس النظام: صدر الدجاج، المفروم البقري والدجاج، فيليه السمك الأبيض. بلا كارب تقريبًا.' },
+ { cat:'pr', e:'🥚', n:'البيض', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'مثالي للكيتو في كل المراحل — بروتين ودهون عالية الجودة.' },
+ { cat:'pr', e:'🌭', n:'اللحوم المصنّعة (نقانق/مرتديلا)', s:{strict:'c',normal:'c',lifestyle:'c'},
+   cond:'<span class="ck">الشرط:</span> اقرأ الملصق — كثير منها يحوي سكرًا أو نشًا أو دقيقًا مالئًا. اختر ما كاربه ≤1–2جم.' },
+
+ // ===== الدهون والزيوت =====
+ { cat:'ft', e:'🧈', n:'الزبدة والسمن', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'دهون نقية بلا كارب. مصدر أساسي للطاقة في الكيتو.' },
+ { cat:'ft', e:'🫒', n:'زيت الزيتون / جوز الهند / الأفوكادو', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'دهون ممتازة. زيت جوز الهند يرفع الكيتونات (MCT).' },
+ { cat:'ft', e:'🥑', n:'الأفوكادو', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'فاكهة دهنية منخفضة الكارب الصافي (≈2جم/نصف حبة). ممتازة كسناك.' },
+ { cat:'ft', e:'🥚', n:'المايونيز', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> النوع الكامل الدسم بدون سكر مضاف (تجنّب «اللايت/الخفيف» — يضاف له سكر).' },
+ { cat:'ft', e:'🚫', n:'المارجرين والزيوت المهدرجة', s:{strict:'n',normal:'n',lifestyle:'c'},
+   cond:'دهون متحولة ضارة وزيوت بذور مكررة. يُفضّل تجنّبها وإن كانت «كيتونية» من حيث الكارب.' },
+
+ // ===== الخضار =====
+ { cat:'vg', e:'🥬', n:'الورقيات (سبانخ/خس/جرجير/كرنب)', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'الأقل كاربًا والأعلى أليافًا — كُل منها بحرية.' },
+ { cat:'vg', e:'🥦', n:'خضار فوق الأرض (بروكلي/قرنبيط/كوسا/فلفل)', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'منخفضة الكارب. القرنبيط بديل ممتاز للأرز/البطاطس.' },
+ { cat:'vg', e:'🍅', n:'الطماطم والبصل', s:{strict:'c',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> كمية محدودة — كاربها أعلى من الورقيات.',
+   pc:{strict:'بالصارم: كميات صغيرة محسوبة فقط (لذلك معجون الطماطم يُؤجَّل للعادي).', normal:'باعتدال طبيعي.'} },
+ { cat:'vg', e:'🥕', n:'الجزر / الشمندر', s:{strict:'c',normal:'c',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> نشوية نسبيًّا — كميات قليلة جدًا ومحسوبة.' },
+ { cat:'vg', e:'🥔', n:'البطاطس / الذرة / البازلاء', s:{strict:'n',normal:'n',lifestyle:'c'},
+   cond:'نشويات عالية تكسر الكيتوزس.',
+   pc:{lifestyle:'لايف ستايل: ملعقة عرضية ضمن سقف الكارب فقط.'} },
+
+ // ===== الفواكه =====
+ { cat:'fr', e:'🍋', n:'الليمون والحامض (عصير قليل)', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'كمية قليلة لإضافة النكهة — أثرها على الكارب ضئيل.' },
+ { cat:'fr', e:'🫐', n:'التوت (فراولة/توت أزرق/توت أحمر)', s:{strict:'c',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> أقل الفواكه كاربًا، لكن بكمية صغيرة.',
+   pc:{strict:'بالصارم: حفنة صغيرة جدًا (≈30جم) نادرًا فقط.', normal:'≈½ كوب باعتدال.', lifestyle:'مسموح بكمية أوسع.'} },
+ { cat:'fr', e:'🍌', n:'الموز/التفاح/العنب/المانجو', s:{strict:'n',normal:'n',lifestyle:'c'},
+   cond:'سكر فواكه مرتفع. تكسر الكيتوزس بسهولة.',
+   pc:{lifestyle:'لايف ستايل: قطعة صغيرة نادرة جدًا فقط مع احتساب الكارب.'} },
+
+ // ===== المكسرات والبذور =====
+ { cat:'nu', e:'🌰', n:'اللوز/عين الجمل/البقان/المكاداميا', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> باعتدال (حفنة ≈30جم) — السعرات عالية. المكاداميا والبقان الأقل كاربًا.' },
+ { cat:'nu', e:'🥜', n:'الكاجو / الفستق', s:{strict:'c',normal:'c',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> أعلى كاربًا من بقية المكسرات — كميات صغيرة فقط.' },
+ { cat:'nu', e:'🟤', n:'الطحينة / السمسم', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> الحصة المعتدلة (≈25–30جم ≈ 2–3جم كارب صافٍ) مناسبة حتى للصارم. ممتازة للصلصات.' },
+ { cat:'nu', e:'🌱', n:'بذور الشيا والكتان والسيلليوم', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'غنية بالألياف (كاربها الصافي منخفض). السيلليوم مثبّت ممتاز للخبز الكيتوني.' },
+
+ // ===== الدقيق والمخبوزات =====
+ { cat:'fl', e:'🌰', n:'دقيق اللوز / جوز الهند', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'البديل الأساسي للدقيق الأبيض في كل المخبوزات الكيتونية.' },
+ { cat:'fl', e:'🍞', n:'دقيق القمح / الذرة / الأرز', s:{strict:'n',normal:'n',lifestyle:'n'},
+   cond:'نشويات صرفة. ممنوعة في كل المراحل.' },
+ { cat:'fl', e:'🥖', n:'الخبز/الأرز/المكرونة/المعجنات', s:{strict:'n',normal:'n',lifestyle:'n'},
+   cond:'أساس ممنوع في الكيتو. استخدم بدائل القرنبيط ودقيق اللوز.' },
+
+ // ===== التوابل والصلصات =====
+ { cat:'co', e:'🧂', n:'الملح والبهارات والأعشاب', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'بلا كارب تقريبًا. الملح مهم لتعويض الأملاح («إنفلونزا الكيتو»).' },
+ { cat:'co', e:'🫙', n:'الخل / الخردل / الصويا صوص', s:{strict:'y',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> الخردل والخل ممتازان؛ الصويا صوص بكمية قليلة (يفضّل قليل الصوديوم وبلا سكر).' },
+ { cat:'co', e:'🍅', n:'معجون الطماطم', s:{strict:'c',normal:'y',lifestyle:'y'},
+   cond:'<span class="ck">الشرط:</span> مركّز سكر الطماطم. لذلك وصفاتك بالطماطم مُصنّفة «عادي/لايف ستايل».',
+   pc:{strict:'بالصارم: تُؤجَّل الوصفات المعتمدة عليه، أو كمية ضئيلة جدًا محسوبة.'} },
+ { cat:'co', e:'🍯', n:'الكاتشب / الصلصات الجاهزة المحلّاة / صلصة الباربكيو', s:{strict:'n',normal:'n',lifestyle:'c'},
+   cond:'محمّلة بالسكر. ابحث عن نسخ «بدون سكر مضاف» واقرأ الملصق.',
+   pc:{lifestyle:'لايف ستايل: النسخ الخالية من السكر فقط.'} },
+];
+
+const CATS = {
+  sw:{e:'🍬', n:'المحليات والسكر'}, dr:{e:'☕', n:'المشروبات'}, da:{e:'🧀', n:'الألبان والأجبان'},
+  pr:{e:'🍗', n:'البروتينات'}, ft:{e:'🥑', n:'الدهون والزيوت'}, vg:{e:'🥦', n:'الخضار'},
+  fr:{e:'🫐', n:'الفواكه'}, nu:{e:'🌰', n:'المكسرات والبذور'}, fl:{e:'🍞', n:'الدقيق والمخبوزات'},
+  co:{e:'🧂', n:'التوابل والصلصات'}
+};
+
+const SMAP = { y:{cls:'yes',lbl:'مسموح',sym:'✓'}, c:{cls:'cond',lbl:'مشروط',sym:'⚠'}, n:{cls:'no',lbl:'ممنوع',sym:'✕'} };
+
+let phase = 'strict';
+let statusFilter = 'all';
+let query = '';
+
+function setPhaseTheme(){
+  const p = PHASES[phase];
+  document.documentElement.style.setProperty('--mode-color', p.color);
+  document.documentElement.style.setProperty('--mode-glow', p.glow);
+}
+
+function renderPhaseBar(){
+  document.getElementById('phaseBar').innerHTML = Object.values(PHASES).map(p=>`
+    <div class="phase-btn ${p.key===phase?'active':''}" data-p="${p.key}">
+      <span class="pb-emoji">${p.emoji}</span>
+      <span class="pb-name">${p.name}</span>
+      <span class="pb-goal">${p.goal}</span>
+    </div>`).join('');
+  document.querySelectorAll('.phase-btn').forEach(b=>b.onclick=()=>{ phase=b.dataset.p; renderAll(); });
+}
+
+function renderPhaseNote(){
+  const p = PHASES[phase];
+  document.getElementById('phaseNote').innerHTML = `<span style="font-size:18px">${p.emoji}</span><div><b>${p.name}:</b> ${p.note}</div>`;
+}
+
+function itemMatches(it){
+  const st = it.s[phase];
+  if(statusFilter!=='all'){ const want = statusFilter==='yes'?'y':statusFilter==='cond'?'c':'n'; if(st!==want) return false; }
+  if(query){ if(!it.n.includes(query) && !(it.cond||'').includes(query)) return false; }
+  return true;
+}
+
+function pillHtml(it,key){
+  const st = it.s[key]; const m = SMAP[st]; const p = PHASES[key];
+  const focus = key===phase ? 'focus' : 'dim';
+  return `<span class="pill ${focus}"><span class="pl">${p.name.replace('الكيتو ','').replace('كيتو ','')}</span> <span class="pv-${m.cls}">${m.sym} ${m.lbl}</span></span>`;
+}
+
+function condHtml(it){
+  let html = it.cond || '';
+  if(it.pc && it.pc[phase]){
+    html += `<span class="ph-cond">↳ <b style="color:${PHASES[phase].color}">في ${PHASES[phase].name}:</b> ${it.pc[phase]}</span>`;
+  }
+  return html;
+}
+
+function renderAll(){
+  setPhaseTheme();
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.toggle('active', b.dataset.p===phase));
+  renderPhaseNote();
+
+  const wrap = document.getElementById('cats');
+  let html = ''; let total = 0;
+  for(const ck of Object.keys(CATS)){
+    const items = DATA.filter(d=>d.cat===ck && itemMatches(d));
+    if(!items.length) continue;
+    total += items.length;
+    const c = CATS[ck];
+    html += `<div class="cat"><div class="cat-h"><span class="ci">${c.e}</span><h2>${c.n}</h2><span class="cc">${items.length}</span></div><div class="grid">`;
+    for(const it of items){
+      const st = it.s[phase]; const m = SMAP[st];
+      html += `<div class="item s-${m.cls}">
+        <div class="item-head"><span class="ie">${it.e}</span><span class="inm">${it.n}</span>
+          <span class="badge ${m.cls}">${m.sym} ${m.lbl}</span></div>
+        <div class="pills">${['strict','normal','lifestyle'].map(k=>pillHtml(it,k)).join('')}</div>
+        ${ (it.cond||it.pc) ? `<div class="cond-note">${condHtml(it)}</div>` : ''}
+      </div>`;
+    }
+    html += `</div></div>`;
+  }
+  wrap.innerHTML = html;
+  document.getElementById('empty').style.display = total? 'none':'block';
+}
+
+document.querySelectorAll('.fchip').forEach(c=>c.onclick=()=>{
+  document.querySelectorAll('.fchip').forEach(x=>x.classList.remove('active'));
+  c.classList.add('active'); statusFilter=c.dataset.f; renderAll();
+});
+document.getElementById('search').oninput = (e)=>{ query=e.target.value.trim(); renderAll(); };
+
+renderPhaseBar();
+renderAll();
+</script>
+</body>
+</html>
